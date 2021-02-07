@@ -33,7 +33,7 @@ impl Sass {
         // Build the path to the target asset.
         let href_attr = el
             .attr(ATTR_HREF)
-            .ok_or_else(|| anyhow!("required attr `href` missing for <link data-trunk .../> element: {}", el.html()))?;
+            .context(format!("required attr `href` missing for <link data-trunk .../> element: {}", el.html()))?;
         let mut path = PathBuf::new();
         path.extend(href_attr.as_ref().split('/'));
         let asset = AssetFile::new(&html_dir, path).await?;
